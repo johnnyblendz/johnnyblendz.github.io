@@ -10,11 +10,11 @@
 <style>
 
   /* ============================================================
-     CALENDLY LINK — paste your Calendly URL here once, and every
+     CAL LINK — paste your Cal URL here once, and every
      "Book Now" button on the page will use it automatically.
      ============================================================ */
   :root{
-    --calendly-url: "https://calendly.com/your-link-here";
+    --cal-url: "https://cal.com/johnnyblendz";
   }
 
   :root{
@@ -529,14 +529,14 @@
 </footer>
 
 <script>
-  // Wire every "Book Now" button to the Calendly URL set at the top of the CSS.
-  var calendlyUrl = getComputedStyle(document.documentElement)
-    .getPropertyValue('--calendly-url')
+  // Wire every "Book Now" button to the Cal.com URL set at the top of the CSS.
+  var calUrl = getComputedStyle(document.documentElement)
+    .getPropertyValue('--cal-url')
     .trim()
     .replace(/^["']|["']$/g, '');
 
   document.querySelectorAll('#cta-nav, #cta-mobile, #cta-hero, #cta-final, #cta-footer')
-    .forEach(function(el){ el.setAttribute('href', calendlyUrl); });
+    .forEach(function(el){ el.setAttribute('href', calUrl); });
 
   // Mobile menu toggle
   var toggle = document.getElementById('menuToggle');
