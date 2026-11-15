@@ -168,27 +168,40 @@
   .ticket-price{ font-family:'Fraunces', serif; font-weight:600; font-size:1.12rem; color:var(--brass); white-space:nowrap; }
 
   /* ---------- expanded services ---------- */
-  .svc-group-title{
-    font-size:1.25rem; margin:46px 0 16px;
-    display:flex; align-items:center; gap:14px;
+  .svc-tabs{
+    display:flex; gap:10px; overflow-x:auto; margin:0 -28px 36px; padding:0 28px 6px;
+    scrollbar-width:none;
   }
-  .svc-group-title:first-of-type{ margin-top:0; }
+  .svc-tabs::-webkit-scrollbar{ display:none; }
+  .svc-tab{
+    flex-shrink:0; background:transparent; border:1px solid var(--line); color:var(--parchment-dim);
+    font-family:'Work Sans', sans-serif; font-weight:500; font-size:0.85rem;
+    padding:8px 18px; border-radius:999px; cursor:pointer;
+    transition:background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+  .svc-tab:hover{ border-color:var(--brass); color:var(--brass); }
+  .svc-tab[aria-pressed="true"]{ background:var(--brass); border-color:var(--brass); color:var(--ink); }
+  .svc-group{ margin-bottom:44px; }
+  .svc-group:last-child{ margin-bottom:0; }
+  .svc-group[hidden]{ display:none; }
+  .svc-group-title{ font-size:1.25rem; margin-bottom:14px; display:flex; align-items:center; gap:14px; }
   .svc-group-title::after{ content:""; flex:1; height:1px; background:var(--line); }
-  .ticket-row.svc{ align-items:center; gap:24px; }
+  .ticket-row.svc{ align-items:flex-start; gap:20px; padding:20px 28px; }
   .svc-main{ flex:1; min-width:0; }
-  .svc-top{ display:flex; align-items:baseline; gap:14px; }
-  .svc-top .ticket-name{ white-space:normal; }
-  .svc-top .leader{ min-width:16px; }
+  .svc-main .ticket-name{ white-space:normal; display:block; }
   .svc-desc{ color:var(--parchment-dim); font-size:0.86rem; margin-top:6px; max-width:620px; }
   .svc-time{
     display:inline-block; margin-top:8px;
     font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase;
     color:var(--brass); font-weight:600;
   }
-  .btn-sm{ padding:9px 20px; font-size:0.82rem; flex-shrink:0; }
+  .svc-main .ticket-name, .svc-side .ticket-price{ line-height:1.3; }
+  .svc-side{ display:flex; flex-direction:column; align-items:flex-end; gap:18px; flex-shrink:0; }
+  .btn-sm{ padding:7px 18px; font-size:0.8rem; }
   @media(max-width:520px){
-    .ticket-row.svc{ flex-direction:column; align-items:stretch; padding:18px 20px; gap:14px; }
-    .btn-sm{ justify-content:center; }
+    .ticket-row.svc{ padding:16px 16px; gap:14px; }
+    .svc-desc{ font-size:0.82rem; }
+    .svc-tabs{ margin:0 -28px 28px; }
   }
 
   .about-grid{ display:grid; grid-template-columns:1fr; gap:44px; align-items:center; }
@@ -318,156 +331,240 @@
         <p>Every cut starts with a consultation and ends with a hot towel finish. Prices are straightforward — no surprises at the chair.</p>
       </div>
 
-      <h3 class="svc-group-title">Barber Services</h3>
-      <div class="ticket">
+      <div class="svc-tabs" id="svcTabs" role="group" aria-label="Filter services">
+        <button class="svc-tab" data-filter="all" aria-pressed="true">All</button><button class="svc-tab" data-filter="haircuts" aria-pressed="false">Haircuts</button><button class="svc-tab" data-filter="combo" aria-pressed="false">Haircut &amp; Beard</button><button class="svc-tab" data-filter="beard" aria-pressed="false">Beard &amp; Shave</button><button class="svc-tab" data-filter="addons" aria-pressed="false">Add-Ons</button><button class="svc-tab" data-filter="facials" aria-pressed="false">Facials</button><button class="svc-tab" data-filter="holiday" aria-pressed="false">Holiday</button>
+      </div>
+
+      <div class="svc-group" data-cat="haircuts">
+        <h3 class="svc-group-title">Haircuts</h3>
+        <div class="ticket">
 
         <div class="ticket-row svc">
           <div class="svc-main">
-            <div class="svc-top"><span class="ticket-name">Deluxe Haircut</span><span class="leader"></span><span class="ticket-price">$45</span></div>
-            <p class="svc-desc">Complimentary hot towel, straight razor, and water, beer, or a shot of whiskey or tequila. Finished with a blow dry and styling — your choice of matte or shine product.</p>
+            <span class="ticket-name">Deluxe Haircut</span>
+            <p class="svc-desc">Complimentary with your service: hot towel, straight razor, and your choice of water, beer, or a shot of whiskey or tequila. Finished with a blow dry and styling — your choice of matte or shine product.</p>
             <span class="svc-time">45 min</span>
           </div>
-          <a class="btn btn-ghost btn-sm book-btn" target="_blank" rel="noopener">Book</a>
+          <div class="svc-side">
+            <span class="ticket-price">$45</span>
+            <a class="btn btn-ghost btn-sm book-btn" target="_blank" rel="noopener">Book</a>
+          </div>
         </div>
 
         <div class="ticket-row svc">
           <div class="svc-main">
-            <div class="svc-top"><span class="ticket-name">Premium Haircut</span><span class="leader"></span><span class="ticket-price">$50</span></div>
-            <p class="svc-desc">Complimentary hot towel, hair design, straight razor, hair wash or eyebrows, and water, beer, or a shot of whiskey or tequila. Finished with a blow dry and styling — matte or shine.</p>
+            <span class="ticket-name">Premium Haircut</span>
+            <p class="svc-desc">Complimentary with your service: hot towel, hair design, straight razor, hair wash or eyebrows, and your choice of water, beer, or a shot of whiskey or tequila. Finished with a blow dry and styling — your choice of matte or shine product.</p>
             <span class="svc-time">1 hr</span>
           </div>
-          <a class="btn btn-ghost btn-sm book-btn" target="_blank" rel="noopener">Book</a>
+          <div class="svc-side">
+            <span class="ticket-price">$50</span>
+            <a class="btn btn-ghost btn-sm book-btn" target="_blank" rel="noopener">Book</a>
+          </div>
         </div>
 
         <div class="ticket-row svc">
           <div class="svc-main">
-            <div class="svc-top"><span class="ticket-name">Deluxe Haircut &amp; Beard</span><span class="leader"></span><span class="ticket-price">$55</span></div>
-            <p class="svc-desc">Complimentary hot towel, straight razor, and water, beer, or a shot of whiskey or tequila. Finished with a blow dry and styling — matte or shine.</p>
+            <span class="ticket-name">Premium Facial + Haircut</span>
+            <span class="svc-time">1 hr 30 min</span>
+          </div>
+          <div class="svc-side">
+            <span class="ticket-price">$100</span>
+            <a class="btn btn-ghost btn-sm book-btn" target="_blank" rel="noopener">Book</a>
+          </div>
+        </div>
+
+        </div>
+      </div>
+
+      <div class="svc-group" data-cat="combo">
+        <h3 class="svc-group-title">Haircut &amp; Beard</h3>
+        <div class="ticket">
+
+        <div class="ticket-row svc">
+          <div class="svc-main">
+            <span class="ticket-name">Deluxe Haircut &amp; Beard</span>
+            <p class="svc-desc">Complimentary with your service: hot towel, straight razor, and your choice of water, beer, or a shot of whiskey or tequila. Finished with a blow dry and styling — your choice of matte or shine product.</p>
             <span class="svc-time">1 hr</span>
           </div>
-          <a class="btn btn-ghost btn-sm book-btn" target="_blank" rel="noopener">Book</a>
+          <div class="svc-side">
+            <span class="ticket-price">$55</span>
+            <a class="btn btn-ghost btn-sm book-btn" target="_blank" rel="noopener">Book</a>
+          </div>
         </div>
 
         <div class="ticket-row svc">
           <div class="svc-main">
-            <div class="svc-top"><span class="ticket-name">Premium Haircut &amp; Beard</span><span class="leader"></span><span class="ticket-price">$60</span></div>
-            <p class="svc-desc">Complimentary hot towel, straight razor, hair wash or eyebrows, and water, beer, or a shot of whiskey or tequila. Finished with a blow dry and styling — matte or shine.</p>
+            <span class="ticket-name">Premium Haircut &amp; Beard</span>
+            <p class="svc-desc">Complimentary with your service: hot towel, straight razor, hair wash or eyebrows, and your choice of water, beer, or a shot of whiskey or tequila. Finished with a blow dry and styling — your choice of matte or shine product.</p>
             <span class="svc-time">1 hr 15 min</span>
           </div>
-          <a class="btn btn-ghost btn-sm book-btn" target="_blank" rel="noopener">Book</a>
+          <div class="svc-side">
+            <span class="ticket-price">$60</span>
+            <a class="btn btn-ghost btn-sm book-btn" target="_blank" rel="noopener">Book</a>
+          </div>
         </div>
 
         <div class="ticket-row svc">
           <div class="svc-main">
-            <div class="svc-top"><span class="ticket-name">Walk-In Only: Deluxe Haircut &amp; Beard</span><span class="leader"></span><span class="ticket-price">$50</span></div>
-            <p class="svc-desc">Complimentary hot towel, straight razor, and water, beer, or a shot of whiskey or tequila. Finished with a blow dry and styling — matte or shine.</p>
+            <span class="ticket-name">Walk-In Only: Deluxe Haircut &amp; Beard</span>
+            <p class="svc-desc">Complimentary with your service: hot towel, straight razor, and your choice of water, beer, or a shot of whiskey or tequila. Finished with a blow dry and styling — your choice of matte or shine product.</p>
             <span class="svc-time">1 hr</span>
           </div>
-          <a class="btn btn-ghost btn-sm book-btn" target="_blank" rel="noopener">Book</a>
+          <div class="svc-side">
+            <span class="ticket-price">$50</span>
+            <a class="btn btn-ghost btn-sm book-btn" target="_blank" rel="noopener">Book</a>
+          </div>
         </div>
+
+        </div>
+      </div>
+
+      <div class="svc-group" data-cat="beard">
+        <h3 class="svc-group-title">Beard &amp; Shave</h3>
+        <div class="ticket">
 
         <div class="ticket-row svc">
           <div class="svc-main">
-            <div class="svc-top"><span class="ticket-name">Beard Service</span><span class="leader"></span><span class="ticket-price">$25</span></div>
+            <span class="ticket-name">Beard Service</span>
             <p class="svc-desc">Trim and line-up. Beard shaped with a straight razor for detail.</p>
             <span class="svc-time">30 min</span>
           </div>
-          <a class="btn btn-ghost btn-sm book-btn" target="_blank" rel="noopener">Book</a>
+          <div class="svc-side">
+            <span class="ticket-price">$25</span>
+            <a class="btn btn-ghost btn-sm book-btn" target="_blank" rel="noopener">Book</a>
+          </div>
         </div>
 
         <div class="ticket-row svc">
           <div class="svc-main">
-            <div class="svc-top"><span class="ticket-name">Beard Trim Only</span><span class="leader"></span><span class="ticket-price">$20</span></div>
-            <p class="svc-desc">Complimentary straight razor, shaping, and water, beer, or a shot of whiskey or tequila. Finished with a blow dry and styling — matte or shine.</p>
+            <span class="ticket-name">Beard Trim Only</span>
+            <p class="svc-desc">Complimentary with your service: straight razor, shaping, and your choice of water, beer, or a shot of whiskey or tequila. Finished with a blow dry and styling — your choice of matte or shine product.</p>
             <span class="svc-time">30 min</span>
           </div>
-          <a class="btn btn-ghost btn-sm book-btn" target="_blank" rel="noopener">Book</a>
-        </div>
-
-        <div class="ticket-row svc">
-          <div class="svc-main">
-            <div class="svc-top"><span class="ticket-name">Line-Up</span><span class="leader"></span><span class="ticket-price">$15</span></div>
-            <p class="svc-desc">Complimentary straight razor and water, beer, or a shot of whiskey or tequila. Finished with a blow dry and styling — matte or shine.</p>
-            <span class="svc-time">15 min</span>
+          <div class="svc-side">
+            <span class="ticket-price">$20</span>
+            <a class="btn btn-ghost btn-sm book-btn" target="_blank" rel="noopener">Book</a>
           </div>
-          <a class="btn btn-ghost btn-sm book-btn" target="_blank" rel="noopener">Book</a>
         </div>
 
         <div class="ticket-row svc">
           <div class="svc-main">
-            <div class="svc-top"><span class="ticket-name">Hot Towel Face &amp; Neck Shave</span><span class="leader"></span><span class="ticket-price">$35</span></div>
+            <span class="ticket-name">Hot Towel Face &amp; Neck Shave</span>
             <span class="svc-time">45 min</span>
           </div>
-          <a class="btn btn-ghost btn-sm book-btn" target="_blank" rel="noopener">Book</a>
+          <div class="svc-side">
+            <span class="ticket-price">$35</span>
+            <a class="btn btn-ghost btn-sm book-btn" target="_blank" rel="noopener">Book</a>
+          </div>
+        </div>
+
+        </div>
+      </div>
+
+      <div class="svc-group" data-cat="addons">
+        <h3 class="svc-group-title">Add-Ons</h3>
+        <div class="ticket">
+
+        <div class="ticket-row svc">
+          <div class="svc-main">
+            <span class="ticket-name">Line-Up</span>
+            <p class="svc-desc">Complimentary with your service: straight razor and your choice of water, beer, or a shot of whiskey or tequila. Finished with a blow dry and styling — your choice of matte or shine product.</p>
+            <span class="svc-time">15 min</span>
+          </div>
+          <div class="svc-side">
+            <span class="ticket-price">$15</span>
+            <a class="btn btn-ghost btn-sm book-btn" target="_blank" rel="noopener">Book</a>
+          </div>
         </div>
 
         <div class="ticket-row svc">
           <div class="svc-main">
-            <div class="svc-top"><span class="ticket-name">Eyebrows</span><span class="leader"></span><span class="ticket-price">$8</span></div>
+            <span class="ticket-name">Eyebrows</span>
             <p class="svc-desc">Straight razor.</p>
             <span class="svc-time">10 min</span>
           </div>
-          <a class="btn btn-ghost btn-sm book-btn" target="_blank" rel="noopener">Book</a>
+          <div class="svc-side">
+            <span class="ticket-price">$8</span>
+            <a class="btn btn-ghost btn-sm book-btn" target="_blank" rel="noopener">Book</a>
+          </div>
         </div>
 
         <div class="ticket-row svc">
           <div class="svc-main">
-            <div class="svc-top"><span class="ticket-name">Hair Wash</span><span class="leader"></span><span class="ticket-price">$5</span></div>
+            <span class="ticket-name">Hair Wash</span>
             <p class="svc-desc">Shampoo and conditioner.</p>
             <span class="svc-time">5 min</span>
           </div>
-          <a class="btn btn-ghost btn-sm book-btn" target="_blank" rel="noopener">Book</a>
-        </div>
-
-        <div class="ticket-row svc">
-          <div class="svc-main">
-            <div class="svc-top"><span class="ticket-name">Premium Facial + Haircut</span><span class="leader"></span><span class="ticket-price">$100</span></div>
-            <span class="svc-time">1 hr 30 min</span>
+          <div class="svc-side">
+            <span class="ticket-price">$5</span>
+            <a class="btn btn-ghost btn-sm book-btn" target="_blank" rel="noopener">Book</a>
           </div>
-          <a class="btn btn-ghost btn-sm book-btn" target="_blank" rel="noopener">Book</a>
         </div>
 
-        <div class="ticket-row svc">
-          <div class="svc-main">
-            <div class="svc-top"><span class="ticket-name">Holiday Cut &amp; Beard</span><span class="leader"></span><span class="ticket-price">$70</span></div>
-            <p class="svc-desc">Same-day holiday service. We're closed on holidays, so there's an additional fee for the barber to come in.</p>
-            <span class="svc-time">30 min</span>
-          </div>
-          <a class="btn btn-ghost btn-sm book-btn" target="_blank" rel="noopener">Book</a>
         </div>
-
-        <div class="ticket-row svc">
-          <div class="svc-main">
-            <div class="svc-top"><span class="ticket-name">Holiday Cut</span><span class="leader"></span><span class="ticket-price">$60</span></div>
-            <p class="svc-desc">Same-day holiday service. We're closed on holidays, so there's an additional fee for the barber to come in.</p>
-            <span class="svc-time">1 hr</span>
-          </div>
-          <a class="btn btn-ghost btn-sm book-btn" target="_blank" rel="noopener">Book</a>
-        </div>
-
       </div>
 
-      <h3 class="svc-group-title">Cera's Services</h3>
-      <div class="ticket">
+      <div class="svc-group" data-cat="facials">
+        <h3 class="svc-group-title">Cera's Services</h3>
+        <div class="ticket">
 
         <div class="ticket-row svc">
           <div class="svc-main">
-            <div class="svc-top"><span class="ticket-name">Rehydrate &amp; Renew</span><span class="leader"></span><span class="ticket-price">$120</span></div>
+            <span class="ticket-name">Rehydrate &amp; Renew</span>
             <p class="svc-desc">60-minute facial: exfoliating cleanse, skin rehydration mask, and skin renewal.</p>
             <span class="svc-time">1 hr</span>
           </div>
-          <a class="btn btn-ghost btn-sm book-btn" target="_blank" rel="noopener">Book</a>
+          <div class="svc-side">
+            <span class="ticket-price">$120</span>
+            <a class="btn btn-ghost btn-sm book-btn" target="_blank" rel="noopener">Book</a>
+          </div>
         </div>
 
         <div class="ticket-row svc">
           <div class="svc-main">
-            <div class="svc-top"><span class="ticket-name">Deep Cleanse &amp; Rejuvenation</span><span class="leader"></span><span class="ticket-price">$150</span></div>
+            <span class="ticket-name">Deep Cleanse &amp; Rejuvenation</span>
             <p class="svc-desc">Deep cleanse with pore extraction, deep hydration, skin renewal, and glow.</p>
             <span class="svc-time">1 hr</span>
           </div>
-          <a class="btn btn-ghost btn-sm book-btn" target="_blank" rel="noopener">Book</a>
+          <div class="svc-side">
+            <span class="ticket-price">$150</span>
+            <a class="btn btn-ghost btn-sm book-btn" target="_blank" rel="noopener">Book</a>
+          </div>
         </div>
 
+        </div>
+      </div>
+
+      <div class="svc-group" data-cat="holiday">
+        <h3 class="svc-group-title">Holiday</h3>
+        <div class="ticket">
+
+        <div class="ticket-row svc">
+          <div class="svc-main">
+            <span class="ticket-name">Holiday Cut &amp; Beard</span>
+            <p class="svc-desc">Same-day holiday service. We're closed on holidays, so there's an additional fee for the barber to come in.</p>
+            <span class="svc-time">30 min</span>
+          </div>
+          <div class="svc-side">
+            <span class="ticket-price">$70</span>
+            <a class="btn btn-ghost btn-sm book-btn" target="_blank" rel="noopener">Book</a>
+          </div>
+        </div>
+
+        <div class="ticket-row svc">
+          <div class="svc-main">
+            <span class="ticket-name">Holiday Cut</span>
+            <p class="svc-desc">Same-day holiday service. We're closed on holidays, so there's an additional fee for the barber to come in.</p>
+            <span class="svc-time">1 hr</span>
+          </div>
+          <div class="svc-side">
+            <span class="ticket-price">$60</span>
+            <a class="btn btn-ghost btn-sm book-btn" target="_blank" rel="noopener">Book</a>
+          </div>
+        </div>
+
+        </div>
       </div>
     </div>
   </section>
@@ -568,6 +665,17 @@
 
   document.querySelectorAll('#cta-nav, #cta-mobile, #cta-hero, #cta-final, #cta-footer, .book-btn')
     .forEach(function(el){ el.setAttribute('href', calUrl); });
+
+  // Services category filter
+  var tabs = document.querySelectorAll('.svc-tab');
+  var groups = document.querySelectorAll('.svc-group');
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      var f = tab.getAttribute('data-filter');
+      tabs.forEach(function(t){ t.setAttribute('aria-pressed', t === tab ? 'true' : 'false'); });
+      groups.forEach(function(g){ g.hidden = !(f === 'all' || g.getAttribute('data-cat') === f); });
+    });
+  });
 
   // Mobile menu toggle
   var toggle = document.getElementById('menuToggle');
