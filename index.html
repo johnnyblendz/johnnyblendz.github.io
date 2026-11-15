@@ -168,11 +168,7 @@
   .ticket-price{ font-family:'Fraunces', serif; font-weight:600; font-size:1.12rem; color:var(--brass); white-space:nowrap; }
 
   /* ---------- expanded services ---------- */
-  .svc-tabs{
-    display:flex; gap:10px; overflow-x:auto; margin:0 -28px 36px; padding:0 28px 6px;
-    scrollbar-width:none;
-  }
-  .svc-tabs::-webkit-scrollbar{ display:none; }
+  .svc-tabs{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:36px; }
   .svc-tab{
     flex-shrink:0; background:transparent; border:1px solid var(--line); color:var(--parchment-dim);
     font-family:'Work Sans', sans-serif; font-weight:500; font-size:0.85rem;
@@ -215,7 +211,8 @@
     .svc-body{ grid-column:1; grid-row:2; }
     .ticket-row.svc .book-btn{ grid-column:2; grid-row:2; align-self:start; margin-top:14px; }
     .svc-desc{ font-size:0.82rem; }
-    .svc-tabs{ margin:0 -28px 28px; }
+    .svc-tabs{ gap:7px; margin-bottom:28px; }
+    .svc-tab{ padding:7px 14px; font-size:0.8rem; }
   }
 
   .about-grid{ display:grid; grid-template-columns:1fr; gap:44px; align-items:center; }
